@@ -1,0 +1,321 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<title>Paperboy</title>
+		<style>
+body {
+  background: #24282f;                                /* main background color in case of no image */
+  font-family: 'Arial';                               /* font arial which should be readable */
+  Height:100%;                                        /* set width to 100% also needed for background */
+  margin:0px;                                         /* hide any margins */
+  background-size: cover;                             /* size background image without distortion along width and height */
+  background-repeat: no-repeat;                       /* no background repeat */
+  Background-attachment:fixed;                        /* needed to make background image behave properly */
+  overflow-y:hidden;                                  /* no normal overflow, only our containers (details & description) will overflow or have scrollbar * /
+}
+ 
+html {
+  height:100%;                                        /* need to set this to 100% to make the background behave propertly */
+}
+
+.title h2 {
+  padding-left: 25px;                                 /* left padding */
+  color: #ccc;                                        /* text color */
+  margin: 0;                                          /* no margins */
+  background-color: black;                            /* black background */
+  vertical-align: middle;                             /* align vertical middle */
+  heigth: 48px;
+}
+
+.title {
+	width: 100%;                                      /* title container width 100% */
+	grid-column: 1 / span 3;                          /* column 1 but spans 3 */
+    grid-row: 1;                                      /* row 1 */
+	heigth: 48px;
+}
+.cards {                                              /* empty not used here */
+}
+
+.card {
+	display: grid;                                    /* container which is the grid */
+	grid-template-columns: min-content;               /* size columns to minimum content */
+	grid-template-rows: min-content min-content;      /* size rows to minimum content */
+	height: 100vh;                                    /* 100% viewport height */
+}
+
+.detailstitle{
+  grid-column: 1;                                     /* 1st column */
+  grid-row: 2;                                        /* 2nd row */
+  width: 350px;                                       /* fixed width set to same size as details */
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+}
+
+.details {
+  padding-left: 10px;                                 /* some padding left */
+  padding-right: 10px;                                /* some padding right */
+  color: #ccc;
+  grid-column: 1;                                      /* 1st column */
+  grid-row: 3;                                         /* 3rd row of grid */
+  width: 350px;                                        /* fixed width of details */
+  overflow-y: auto;                                     /* add vertical scrollbar if needed */
+  overflow-x:hidden;                                   /* don't overflow on x axis (no horz scrollbar) */
+ }
+ 
+.detailstitle h3,
+.descriptiontitle h3 {
+	border-bottom: 1px solid #ccc;                     /* titles of description details should have line under it */
+	padding: 5px;                                      /* add some padding */
+	color: #ccc;                                       /* text color of the titles */
+}
+
+.detailstable th, td {
+  border: 0px;                                         /* no borders on td, th elements */
+  color: #ccc;                                         /* details table text color */
+}
+
+.detailstable td {
+  text-align: left;                                    /* align text left */
+  vertical-align: top;                                 /* align top */
+}
+
+.detailstable {
+  width: 100%;                                         /* set to full width of details */
+  padding: 5px;                                        /* add some padding */
+}
+
+.descriptiontitle {
+	grid-column: 2;                                    /* column 2 of grid */
+	grid-row: 2;                                       /* row 2 of grid */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+
+.description {
+	color: #ccc;                                       /* text color */
+	grid-column: 2;                                    /* 2nd column of grid */
+	grid-row: 3;                                       /* 3rd row of grid */
+	overflow-y: auto;                                  /* overflow-y automatic (for adding scrollbar) */
+	overflow-x:hidden;                                 /* prevent horizontal scrollbar */
+	padding-left: 10px;                                /* some padding left */
+	padding-right: 10px;                               /* some padding right */
+}
+
+.description img {
+	max-width: 100%;                                   /* make sure images don't overflow in width to prevent scrollbars */
+}
+
+.footer {
+	grid-column:1;                                     /* 1st column of grid */
+	grid-row:3;                                        /* 3rd row of grid */
+}
+
+.MenuButton {
+  border: none;                                        /* Remove borders */
+  outline: none;                                       /* Remove outline */
+  background-color: #888;                              /* Set a background color */
+  color: #000;                                         /* Text color */
+  padding: 5px;                                        /* Some padding */
+  border-radius: 4px;                                  /* Rounded corners, border */
+  font-size: 20px;                                     /* Increase font size */
+  cursor:pointer;                                         /* Add a mouse pointer on hover */
+  margin-right: 20px;                                  /* to have some space on right side before next element */
+  -webkit-appearance: button;
+  -moz-appearance: button;
+  appearance: button;
+  text-decoration: none;
+}
+
+.MenuButton:hover {
+  background-color: #777;                              /* Add a dark-grey background on hover */
+  color: #CCC;                                         /* Text color */
+}
+
+a {
+ text-decoration: none;                                /* no text underline in links */
+}
+a:link {
+  color: #B1B1B1;                                      /* unvisited link color */
+}
+a:visited {
+  color: #B1B1B1;                                      /* visited link color */
+}
+a:hover {
+  color: #D1D1D1;                                      /* mouse over link color */
+  text-decoration: underline;                          /* add text underline in links when mouse over */
+}
+a:active {
+  color: #B1B1B1;                                      /* selected link color */
+}
+
+                                                       /* scrollbars W3C standard that is currently Firefox-only */
+* {
+  scrollbar-width: thin;                               /* small width */
+  scrollbar-color: #888 transparent;                   /* trackbar color + transparant background */
+}
+
+                                                       /* scrollbars on Chrome/Edge/Safari */
+*::-webkit-scrollbar {
+  width: 12px;                                         /* small width */
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;                             /* background color track */
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #AAA;                              /* background */
+  border-radius: 20px;                                 /* rounded corner, border */
+  border: 3px solid #888;                              /* add the border */
+}
+
+		</style>
+	</head>
+	<body style="background-image: linear-gradient(to bottom, #24282f, rgba(100,100,100,0.73))">
+		<div class="cards">
+			<div class="card">
+				<div class="title">
+					<h2><button onclick="window.history.back()" class="MenuButton">Back</button> Paperboy</h2>
+				</div>
+				<div class="detailstitle">
+				<H3>Details</H3>
+				</div>
+				<div class="details">
+					<div style="overflow: auto;">
+						<TABLE class="detailstable">
+							<col style="width:50%" />
+							<col style="width:50%" />							<TR>
+								<TD>Playtime</TD>
+								<TD>Not Played</TD>
+							</TR>
+							<TR>
+								<TD>Last Activity</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_lastactivity_descending_name_ascending.html#quicklink-Never">Never</a> </TD>
+							</TR>
+							<TR>
+								<TD>Added</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_added_descending_name_ascending.html#quicklink-02/04/2021">02/04/2021</a> 15:54:42</TD>
+							</TR>
+							<TR>
+								<TD>Modified</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_modified_descending_name_ascending.html#quicklink-Never">Never</a> </TD>
+							</TR>
+							<TR>
+								<TD>Completion Status</TD>
+								<TD><a href="default%20list%20text_completionstatus_ascending_name_ascending.html#quicklink-Not Played">Not Played</a></TD>
+							</TR>
+							<TR>
+								<TD>Source</TD>
+								<TD><a href="default%20list%20text_source_ascending_name_ascending.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Platform</TD>
+								<TD><a href="default%20list%20text_platform_ascending_name_ascending.html#quicklink-Nintendo Entertainment System">Nintendo Entertainment System</a></TD>
+							</TR>
+							<TR>
+								<TD>Release Date</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_releasedate_descending_name_ascending.html#quicklink-31/12/1985">31/12/1985</a> </TD>
+							</TR>
+							<TR>
+								<TD>Community Score</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_communityscore_descending_name_ascending.html#quicklink-54">54</a></TD>
+							</TR>
+							<TR>
+								<TD>Critic Score</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_criticscore_descending_name_ascending.html#quicklink-77">77</a></TD>
+							</TR>
+							<TR>
+								<TD>User Score</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_userscore_descending_name_ascending.html#quicklink-"></a></TD>
+							</TR>
+							<TR>
+								<TD>Genre</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Arcade">Arcade</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Racing">Racing</a><br/><a href="default%20list%20text%20combobox%20quicklinks_genre_ascending_name_ascending.html#quicklink-Simulator">Simulator</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Developer</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Atari Games Corporation">Atari Games Corporation</a><br/><a href="default%20list%20text%20combobox%20quicklinks_developer_ascending_name_ascending.html#quicklink-Atari Games Corporation">Atari Games Corporation</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Publisher</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Atari Games Corporation">Atari Games Corporation</a><br/><a href="default%20list%20text%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Digital Eclipse">Digital Eclipse</a><br/><a href="default%20list%20text%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Elite Systems Ltd">Elite Systems Ltd</a><br/><a href="default%20list%20text%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Midway Home Entertainment">Midway Home Entertainment</a><br/><a href="default%20list%20text%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Mindscape">Mindscape</a><br/><a href="default%20list%20text%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-Tengen">Tengen</a><br/><a href="default%20list%20text%20combobox%20quicklinks_publisher_ascending_name_ascending.html#quicklink-U.S. Gold">U.S. Gold</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Feature</TD>
+								<TD><a href="default%20list%20text%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Multiplayer">Multiplayer</a><br/><a href="default%20list%20text%20combobox%20quicklinks_feature_ascending_name_ascending.html#quicklink-Single Player">Single Player</a><br/></TD>
+							</TR>
+							<TR>
+								<TD>Links</TD>
+								<TD></TD>
+							</TR>
+						</TABLE>
+					</div>
+				</div>
+				<div class="descriptiontitle">
+					<H3>Description</H3>
+				</div>
+				<div class="description">
+					Paperboy is a 1985 arcade game by Atari Games originally developed in 1984 . The players take the role of a paperboy who delivers newspapers along a suburban street on his bicycle. The game was ported to numerous video game consoles and personal computers. The Nintendo Entertainment System (NES) version represented the first NES game developed in the United States and coincidentally, the Sega Master System version represented the first SMS game developed in the United Kingdom. Paperboy was innovative for its theme and novel controls. 
+<br> 
+<br> 
+<br>GAMEPLAY: 
+<br>The player controls a paperboy on a bicycle delivering newspapers along a suburban street which is displayed in a cabinet perspective (or oblique projection) view. The player attempts to deliver a week of daily newspapers to subscribing customers, attempts to vandalize non-subscribers' homes and must avoid hazards along the street. Subscribers are lost by missing a delivery or damaging a subscriber's house. 
+<br> 
+<br>The game begins with a choice of difficulty levels: Easy Street, Middle Road and Hard Way. The object of the game is to perfectly deliver papers to subscribers for an entire week and avoid crashing (which counts as one of the player's lives) before the week ends. The game lasts for seven in-game days, Monday through Sunday. 
+<br> 
+<br>Controlling the paperboy with the handlebar controls, the player attempts to deliver newspapers to subscribers. Each day begins by showing an overview of the street indicating subscribers and non-subscribers. Subscribers and non-subscribers' homes are also easy to discern in the level itself, with subscribers living in brightly colored houses, and non-subscribers living in dark houses. 
+<br> 
+<br>Delivering the papers 
+<br>The paperboy begins his route at the start of the street (bottom of the screen) and progresses towards the end. The player can control the paperboy's speed, but the paperboy is in constant movement and cannot stop moving forward until the level (day of the week) has ended. Should he slow down or stop for more than a few seconds, a swarm of bees will appear (arcade version only). For each paper that is delivered to a subscriber's mailbox, the player receives 250 points. If the paper is delivered to the subscriber's doorstep, the player receives 100 points. Points are multiplied x2 for playing 'Middle Road', and x3 for playing 'Hard Way'. Points can be gained for breaking plants, running over flowers, or throwing papers into windows of the non-subscriber houses. 
+<br> 
+<br> 
+<br>In Paperboy, the player attempts to deliver newspapers to subscribers along a suburban street. 
+<br>The primary objectives of the game are to keep as many subscribers as possible and to stay alive. Secondary objectives include vandalizing non-subscribers' homes and hitting nuisances with newspapers. 
+<br> 
+<br>Keeping subscribers is fairly straightforward: the player must deliver a paper to them. While the player may deliver more than one paper to each customer, they have to avoid accidentally damaging their homes, such as by throwing a paper through a window. Delivering a newspaper directly into the customer's newspaper box (or mailbox, as the voiceover calls it) earns bonus points. Accidentally damaging a customer's home or failing to deliver a paper causes the customer to cancel his subscription and may cause him to set traps for the paperboy the next day. In more advanced rounds, the homeowner may immediately run after the paperboy after the house is damaged. 
+<br> 
+<br>The player must stay alive by avoiding obstacles that appear along the street. Some obstacles include everyday nuisances such as fire hydrants, storm drains, break dancers, cars, skateboarders, drunks, kids with radio controlled toys and even rather bizarre foes such as a tornado, oversized house cats, and even the Grim Reaper himself. The player must also cross street intersections successfully (which gets harder each day). Some obstacles can earn the player bonus points. For example, the breakdancer and some men brawling in the street can be "smacked" with a newspaper for extra points. Running into any of the obstacles with the bike results in the loss of a life. 
+<br> 
+<br>There are two types of collisions possible from running into obstacles, "%#@*!" and "SMACK!" The former results from hitting obstacles that are integral parts of the landscape, such as fire hydrants, fences, and signposts. The latter collision type comes from obstacles not integral to the landscape: cars, people, dogs and bees. 
+<br> 
+<br>Along the way, the paperboy can pick up extra bundles of papers since he can carry only a limited number. These are sometimes located in difficult to reach spots. 
+<br> 
+<br>A 'Perfect Delivery' is achieved by successfully delivering to all current subscribers. This award doubles bonus points for each house delivered to, as well as reinstating one lost subscriber - up to a maximum of 10 out of the 20 houses being subscribers. If a 'Perfect Delivery' is achieved when the player already has 10 subscribers, double bonus points are still awarded, but no further subscribers are added. 
+<br> 
+<br> 
+<br>Training course 
+<br>Paperboy encountering some obstacles, such as a Big Wheel tricyclist and a construction worker. 
+<br>The end of each level contains a "training course", with unique music, which the player can traverse within an allotted time for bonus points. In the training course are various targets to be struck with papers, jumps, water and other hazards. Riding over a jump replenishes the paperboy's stock of papers in addition to earning points. As with the rest of the level, the difficulty of the training course increases over the week, with new hazards added each day. Crashing on the course or running out of time ends the day, but does not result in the loss of a life. Successful completion of the training course rewards the player with a bonus for any remaining time. 
+<br> 
+<br> 
+<br>Finish line bug 
+<br>A bug in the game allowed the player to skirt the finish line at the end of the training course and repeat it a second time, with garbage data appearing in the display, garnering huge scores. 
+<br> 
+<br>Recapping the delivery 
+<br>The next day begins with the neighborhood overview again, highlighting new subscribers and any unsubscribers. A flawless delivery record for the previous day results in a new subscriber. The next day through, the street is harder with more obstacles and faster cars. 
+<br> 
+<br>The game concludes with the Sunday delivery. The road is the hardest version of whichever road the player has selected, and the Sunday edition papers are heavier and fly more slowly. Successfully delivering papers on this day ends the game, but with a newspaper headlined "Paperboy Wins Award For Outstanding Paper Delivery", complete with a picture of the paperboy holding a trophy. 
+<br> 
+<br>Losing all lives also ends the game with a headline reading "Paperboy Calls It Quits." Causing all subscribers to cancel their subscriptions by either failing to deliver their paper or vandalizing their houses results in a headline reading "Paperboy Fired", along with a digitized voice which states "You're fired!" 
+<br> 
+<br>The arcade version of the game included a number of voice clips, used both as voiceover commentary at game start (e.g. "Paperboy... stopping at nothing in his valiant effort to save this land from TV journalism,") and as the voice of the paperboy himself when tossing a paper into a mailbox (e.g. "Now you have a friend in the paper business.") or losing a life (e.g. "I live a life of danger."). Hitting a few particular obstacles could trigger voice clips specific to the obstacle. (For example, a satirical "Let's see you hang ten!" when struck by a skateboarder, or when struck by a tricyclist, he replies, "I hate that kid.") Voice clips from collisions only result from the "SMACK!" kind. 
+<br> 
+<br> 
+<br>PORTS: 
+<br>Paperboy was ported to consoles and home computers, starting in 1986. In some of these versions, the player could assume the role of a papergirl instead of a paperboy. Paperboy was ported to the BBC Micro and Acorn Electron (by Andy Williams, 1986), Commodore 64 (by Chris Harvey and Neil A Bate, 1986), Commodore 16 (1986), Amstrad CPC (1986), ZX Spectrum (1986), Apple II (1986), TRS-80 Color Computer (1986), DOS (1988), Apple IIGS (1988), NES/Famicom (1988)(1991, Japan), Game Boy (1990), Game Boy Color (1999), Atari ST (1989), Amiga (1989), Atari Lynx (1990), Sega Master System (1990), Game Gear (1991), and Sega Mega Drive/Genesis (1991)(1992, Japan). The NES version is particularly notable for being the first NES game developed in the United States. 
+<br> 
+<br>Unlike the arcade version, several of these versions inspired a sequel, Paperboy 2 for several home systems (Amiga, Amstrad CPC, Atari ST, DOS, Game Boy, Game Gear, Sega Genesis, NES, SNES, ZX Spectrum), and a 3D version for the Nintendo 64 called Paperboy 64. 
+<br> 
+<br>More recently, Paperboy was included in Midway Arcade Treasures, a compilation of arcade games for the Nintendo GameCube, PlayStation 2, PlayStation Portable, Xbox, and Windows released in 2003. 
+<br>A Mobile version of Paperboy was released in 2005. 
+<br> 
+<br>Paperboy was also released on February 14, 2007 on Xbox Live Arcade for the Xbox 360; however, the game was delisted. 
+<br> 
+<br>An iPhone/iPod Touch 25th anniversary version of Paperboy was released December 18, 2009.
+				</div>
+				<div class="footer"> </div>
+			</div>
+		</div>
+	</body>
+</html>
